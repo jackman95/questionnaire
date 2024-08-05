@@ -15,7 +15,8 @@
 4. **Nginx settings on linux server**
     - To the config file Nginx on the server past following code: 
 
-    ```server {
+    ```
+    server {
           listen 80;  # last 2 digits of your port
           server_name your_domain.com;  # change your domain name
 
