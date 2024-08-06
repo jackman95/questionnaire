@@ -40,16 +40,24 @@ const Question: React.FC<QuestionProps> = ({ data, answer, onNext, onPrevious, o
   };
 
   const handleNext = () => {
-    if (data.type === 'checkbox' && (currentAnswer as string[]).length === 0) {
+    if (data.type === 'text') {
+      const textRegex = /^[A-Za-zÀ-ž\s]+$/;
+      if (!textRegex.test(currentAnswer as string)) {
+        setError('Enter a valid name');
+        return;
+      }
+    } else if (data.type === 'checkbox' && (currentAnswer as string[]).length === 0) {
       setError('Please select an option');
+      return;
     } else if (data.type === 'number' && (currentAnswer === '' || Number(currentAnswer) <= 0)) {
       setError('Write 1 or greater');
+      return;
     } else if (!currentAnswer) {
       setError('I miss the answer');
-    } else {
-      setError('');
-      onNext(currentAnswer);
+      return;
     }
+    setError('');
+    onNext(currentAnswer);
   };
 
   return (
